@@ -58,8 +58,7 @@ jobs:
       run: |
         ssh -i /tmp/ssh_key $EC2_USER@$EC2_HOST << EOF
           cd /home/ubuntu/nestjs-api
-          git fetch --all
-          git reset --hard origin/main
+          git pull origin main
           npm install
           exit
         EOF
