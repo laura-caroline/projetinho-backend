@@ -36,7 +36,8 @@ app.get('/api/product', async (req, res) => {
 
 app.get('/api/users', async (req, res) => {
   try{
-    return res.status(201).json({users: [{name: 'x', teste: 'x'}]}); 
+    const products = await prisma.post.findMany()
+    return res.status(201).json(products); 
   }
   catch(err){
     console.log(err)
