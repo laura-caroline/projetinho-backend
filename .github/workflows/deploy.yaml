@@ -43,10 +43,22 @@ jobs:
       run: |
         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        aws configure set default.region us-east-1 
+        aws configure set default.region us-east-1 # Ajuste a região conforme necessário
+
+    - name: Save SSH key to file
+      run: |
+        echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/ssh_key
+        chmod 600 /tmp/ssh_key
+
+    - name: Show specific environment variables
+      run: |
+        if [ -z "$EC2_SSH_KEY" ]; then echo "EC2_SSH_KEY is not set"; else echo "EC2_SSH_KEY is set"; fi
+        if [ -z "$EC2_HOST" ]; then echo "EC2_HOST is not set"; else echo "EC2_HOST is set"; fi
+        if [ -z "$EC2_USER" ]; then echo "EC2_USER is not set"; else echo "EC2_USER is set"; fi
+
     - name: Deploy to EC2
       run: |
-        ssh -i $EC2_SSH_KEY $EC2_USER@$EC2_HOST << EOF
+        ssh -i /tmp/ssh_key $EC2_USER@$EC2_HOST << EOF
           cd /home/ubuntu/nestjs-api
           git pull origin main
           npm install
