@@ -50,10 +50,6 @@ jobs:
         echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/ssh_key
         chmod 400 /tmp/ssh_key
 
-    - name: Test SSH Connectivity
-      run: |
-        ssh -vvv -o StrictHostKeyChecking=no -i /tmp/ssh_key $EC2_USER@$EC2_HOST "echo 'SSH Connection Successful'"
-
     - name: Deploy to EC2
       run: |
         ssh -i /tmp/ssh_key $EC2_USER@$EC2_HOST << EOF
