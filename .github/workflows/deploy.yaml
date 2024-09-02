@@ -37,7 +37,7 @@ jobs:
       run: npx prisma generate
 
     - name: Apply migrations
-      run: npx prisma migrate dev
+      run: npx prisma migrate deploy
 
     - name: Configure AWS CLI
       run: |
