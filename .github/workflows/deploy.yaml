@@ -48,13 +48,7 @@ jobs:
     - name: Save SSH key to file
       run: |
         echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/ssh_key
-        chmod 600 /tmp/ssh_key
-
-    - name: Show specific environment variables
-      run: |
-        if [ -z "$EC2_SSH_KEY" ]; then echo "EC2_SSH_KEY is not set"; else echo "EC2_SSH_KEY is set"; fi
-        if [ -z "$EC2_HOST" ]; then echo "EC2_HOST is not set"; else echo "EC2_HOST is set"; fi
-        if [ -z "$EC2_USER" ]; then echo "EC2_USER is not set"; else echo "EC2_USER is set"; fi
+        chmod 400 /tmp/ssh_key
 
     - name: Deploy to EC2
       run: |
