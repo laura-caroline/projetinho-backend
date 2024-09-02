@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "express": "^4.19.2",
+    "typescript": "^5.5.4"
+  },
+  "name": "projeto-backend-teste",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@prisma/client": "^5.17.0",
+    "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "start": "npx ts-node src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
