@@ -34,4 +34,16 @@ app.get('/api/product', async (req, res) => {
   }
 })
 
+app.get('/api/users', async (req, res) => {
+  try{
+    return res.status(201).json({users: [{name: 'x', teste: 'x'}]}); 
+  }
+  catch(err){
+    console.log(err)
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
+
+
 app.listen(3000)
