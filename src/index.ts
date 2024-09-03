@@ -1,6 +1,6 @@
 import { prisma } from "../prisma/database"
 import * as express from 'express'
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 const app = express()
 app.use(express.json());
