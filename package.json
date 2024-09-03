@@ -8,10 +8,11 @@
   "main": "index.js",
   "devDependencies": {
     "@prisma/client": "^5.17.0",
+    "nodemon": "^3.1.4",
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "start": "npx ts-node src/index.ts"
+    "start": "nodemon --exec npx ts-node src/index.ts"
   },
   "author": "",
   "license": "ISC",
