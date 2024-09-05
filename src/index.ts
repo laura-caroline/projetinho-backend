@@ -1,49 +1,36 @@
-import { prisma } from "../prisma/database"
 import * as express from 'express'
 import * as dotenv from 'dotenv';
+import axios from 'axios';
 
 const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/api', function (req, res) {
+app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-app.post('/api/product', async (req, res) => {
+app.get('/healthcheck', (req, res) => {
   try{
-    const {title, content} = req.body
-    const product = await prisma.post.create({data: {title, content}})
-    return res.status(201).json(product); 
+    return res.status(204).send('OK'); // Retorna status 200 (OK)
   }
-  catch(err){
-    console.log(err)
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-  
-})
-app.get('/api/product', async (req, res) => {
-  try{
-    const products = await prisma.post.findMany()
-    return res.status(201).json(products); 
-
-  }
-  catch(err){
-    console.log(err)
-    res.status(500).json({ error: 'Internal server error' });
-
+  catch(error){
+    return res.status(500).send(error.message); // Retorna status 200 (OK)
   }
 })
 
-app.get('/api/users', async (req, res) => {
+app.get('/dogs', async (req, res)=> {
   try{
-    const products = await prisma.post.findMany()
-    console.log('xssss')
-    return res.status(201).json(products); 
+    const response = await axios.get('https://dog.ceo/api/breeds/image/random') 
+    console.log(JSON.stringify(response.data))
+
+    const {message: dogImage} = response.data
+
+    res.send(`<img src=${dogImage} alt="random dog" style="max-width: 500px"/>`)
   }
-  catch(err){
-    console.log(err)
-    res.status(500).json({ error: 'Internal server error' });
+  catch(error){
+    console.log(JSON.stringify(error))
+    res.status(500).send(error.message); // Retorna status 200 (OK)
   }
 })
 
